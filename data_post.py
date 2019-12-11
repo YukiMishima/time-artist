@@ -4,6 +4,7 @@ import urllib.request
 
 # 変数は必要に応じて外部化してください。
 url = "http://localhost:8000/api/logs/"
+url = "https://pomeranian-server.herokuapp.com/api/logs/"
 method = "POST"
 headers = {"Content-Type": "application/json", }
 
