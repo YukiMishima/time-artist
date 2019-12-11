@@ -138,10 +138,10 @@ LOGOUT_REDIRECT_URL = '/'
 DEBUG = False
 
 try:
-        from .local_settings import *
+    from .local_settings import *
 except ImportError:
-        pass
+    pass
 
-    if not DEBUG:
-            import django_heroku
-                django_heroku.settings(locals())
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())
