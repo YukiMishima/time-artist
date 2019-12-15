@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', MainView.as_view()),
+    path('bot/', include('bot.urls')),
 ]
 
 # ログイン画面のタイトルを変更
