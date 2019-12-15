@@ -1,0 +1,1 @@
+serif = open("bot/serif.txt", encoding='utf-8').read().split("\n")
