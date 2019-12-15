@@ -17,8 +17,19 @@ HEADER = {
     "Authorization": "Bearer " + ACCESS_TOKEN
 }
 
+def callback(request):
+    reply=""
+    request_json = json.loads(request.body.decode('utf-8'))
+    for e in request_json['events']:
+        reply_token=e['replyToken']
+        message_type = e['message']['type']
+
+        if message_type == 'text':
+            text = e['message']['text']
+            reply += reply_text(reply_token, text)
+    return HttpResponse(reply)
+
 def reply_text(reply_token, text):
-    # serif = open("bot/serif.txt","r",'utf-8').read().split("\n")
     reply = random.choice(serif)
     payload = {
         "replyToken": reply_token,
@@ -32,15 +43,3 @@ def reply_text(reply_token, text):
 
     requests.post(REPLY_ENDPOINT, headers=HEADER, data=json.dumps(payload))
     return reply
-
-def callback(request):
-    reply=""
-    request_json = json.loads(request.body.decode('utf-8'))
-    for e in request_json['events']:
-        reply_token=['replyToken']
-        message_type = e['message']['type']
-
-        if message_type == 'text':
-            text = e['message']['text']
-            reply += reply_text(reply_token, text)
-    return HttpResponse(reply)
