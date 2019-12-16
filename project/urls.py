@@ -16,4 +16,4 @@ urlpatterns = [
 ]
 
 # ログイン画面のタイトルを変更
-admin.site.site_header = '気温と湿度の変化'
+admin.site.site_header = '混雑度の変化'
