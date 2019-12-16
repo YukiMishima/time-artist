@@ -6,3 +6,4 @@ db.sqlite3
 *.py[co]
 local_settings.py
 data_post.py
+settings.py
