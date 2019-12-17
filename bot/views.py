@@ -6,6 +6,7 @@ from api.models import Log
 import json
 import random
 import requests
+import datetime
 
 def index(request):
     return HttpResponse("This is bot api.")
@@ -33,8 +34,9 @@ def callback(request):
 def reply_text(reply_token, text):
     # reply = random.choice(serif)
     data = Log.objects.values('created_at','temperature')
-    newest_data = data.last()['temperature']
-    reply = str(newest_data)
+    newest_data = str(int(data.last()['temperature']))
+    newest_time = data.last()['created_at'].strftime("%Y{0}%M{1}%d{2}%H:%M:%S").format(*'年月日')
+    reply = newest_time + 'の時点では' + newest_data + '%だワン'
     payload = {
         "replyToken": reply_token,
         "messages":[
@@ -50,10 +52,12 @@ def reply_text(reply_token, text):
 
 def congestion(request):
     data = Log.objects.values('created_at','temperature')
-    newest_data = data.last()['temperature']
+    newest_congestion = data.last()['temperature']
+    newest_time = data.last()['created_at'].strftime("%Y{0}%M{1}%d{2} %H:%M:%S").format(*'年月日')
     data_dict = {
         'title': 'test',
         'val': data,
-        'new': newest_data,
+        'newest_data': newest_congestion,
+        'newest_time': newest_time,
     }
     return render(request, 'data.html', data_dict)
