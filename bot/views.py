@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from bot.load_serif import serif
+from api.models import Log
 
 import json
 import random
@@ -30,7 +31,10 @@ def callback(request):
     return HttpResponse(reply)
 
 def reply_text(reply_token, text):
-    reply = random.choice(serif)
+    # reply = random.choice(serif)
+    data = Log.objects.values('created_at','temperature')
+    newest_data = data.last()['temperature']
+    reply = str(newest_data)
     payload = {
         "replyToken": reply_token,
         "messages":[
@@ -43,3 +47,13 @@ def reply_text(reply_token, text):
 
     requests.post(REPLY_ENDPOINT, headers=HEADER, data=json.dumps(payload))
     return reply
+
+def congestion(request):
+    data = Log.objects.values('created_at','temperature')
+    newest_data = data.last()['temperature']
+    data_dict = {
+        'title': 'test',
+        'val': data,
+        'new': newest_data,
+    }
+    return render(request, 'data.html', data_dict)
