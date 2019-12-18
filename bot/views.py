@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from bot.load_serif import serif
 from api.models import Log
+from django.utils import timezone
 
 import json
 import random
@@ -35,7 +36,8 @@ def reply_text(reply_token, text):
     # reply = random.choice(serif)
     data = Log.objects.values('created_at','temperature')
     newest_data = str(int(data.last()['temperature']))
-    newest_time = data.last()['created_at'].strftime("%Y{0}%m{1}%d{2}%H:%M:%S").format(*'年月日')
+    newest_time_utc = data.last()['created_at']
+    newest_time = timezone.localtime(newest_time_utc).strftime("%Y{0}%m{1}%d{2}%H:%M:%S").format(*'年月日')
     reply = newest_time + 'の時点では' + newest_data + '%だワン'
     payload = {
         "replyToken": reply_token,
@@ -53,7 +55,9 @@ def reply_text(reply_token, text):
 def congestion(request):
     data = Log.objects.values('created_at','temperature')
     newest_congestion = data.last()['temperature']
-    newest_time = data.last()['created_at'].strftime("%Y{0}%m{1}%d{2} %H:%M:%S").format(*'年月日')
+    # newest_time = data.last()['created_at'].strftime("%Y{0}%m{1}%d{2} %H:%M:%S").format(*'年月日')
+    newest_time_utc = data.last()['created_at']
+    newest_time = timezone.localtime(newest_time_utc).strftime("%Y{0}%m{1}%d{2}%H:%M:%S").format(*'年月日')
     data_dict = {
         'title': 'test',
         'val': data,
