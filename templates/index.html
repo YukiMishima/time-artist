@@ -77,7 +77,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" charset="utf-8"></script>
 <script>
 
-    setTimeout(()=>location.reload(), 5000)
+    // setTimeout(()=>location.(), 5000)
 
     var chart;
 
@@ -159,7 +159,7 @@
     }
 
     // データ読込
-    function reload() {
+    function initial_load() {
 
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
@@ -176,13 +176,31 @@
             })
     };
 
+    function reload() {
+
+        // 指定時間を取得
+        var days = $('input[name=days]:checked').val();
+        // 1日、３日、７日前の時間を設定
+        var param = moment().subtract(days, 'days').format('YYYY-MM-DD HH:mm:ss')
+
+        $.getJSON('/api/logs?created_at__gte=' + param)
+            .done(function (source) {
+                let data = new Array(2);
+                data[0] = _.pluck(source, 'created_at');
+                data[1] = _.pluck(source, 'temperature');
+                // data[2] = _.pluck(source, 'humidity');
+                chart.data.datasets[0].data=data;
+                chart.update();
+            })
+    };
+
     $(document).ready(function () {
         // ラジオボタンのイベントリスナー
         $('input[name="days"]:radio').on('change', function () {
             reload();
         });
         // 初期化
-        reload();
+        initial_load();
     });
 
 </script>
