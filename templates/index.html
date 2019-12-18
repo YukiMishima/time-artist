@@ -66,8 +66,8 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="days" id="term_5"
-                                       value="10">
-                                １０分
+                                       value="5">
+                                ５分
                             </label>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
 
-        if (days==10) {
+        if (days==5) {
             var param = moment().subtract(days, 'minutes').format('YYYY-MM-DD HH:mm:ss');
         } else {
             // 1日、３日、７日前の時間を設定
@@ -192,7 +192,7 @@
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
 
-        if (days==10) {
+        if (days=5) {
             var param = moment().subtract(days, 'minutes').format('YYYY-MM-DD HH:mm:ss')
         } else {
             // 1日、３日、７日前の時間を設定
