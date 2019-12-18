@@ -63,6 +63,13 @@
                                 １日分
                             </label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="days" id="term_5"
+                                       value="10">
+                                １０分
+                            </label>
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -163,15 +170,19 @@
 
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
-        // 1日、３日、７日前の時間を設定
-        var param = moment().subtract(days, 'days').format('YYYY-MM-DD HH:mm:ss')
+
+        if (days==10) {
+            var param = moment().subtract(days, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+        } else {
+            // 1日、３日、７日前の時間を設定
+            var param = moment().subtract(days, 'days').format('YYYY-MM-DD HH:mm:ss');
+        }
 
         $.getJSON('/api/logs?created_at__gte=' + param)
             .done(function (source) {
                 let data = new Array(2);
                 data[0] = _.pluck(source, 'created_at');
                 data[1] = _.pluck(source, 'temperature');
-                // data[2] = _.pluck(source, 'humidity');
                 drawChart(data);
             })
     };
@@ -180,15 +191,19 @@
 
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
-        // 1日、３日、７日前の時間を設定
-        var param = moment().subtract(days, 'days').format('YYYY-MM-DD HH:mm:ss')
+
+        if (days==10) {
+            var param = moment().subtract(days, 'minutes').format('YYYY-MM-DD HH:mm:ss')
+        } else {
+            // 1日、３日、７日前の時間を設定
+            var param = moment().subtract(days, 'days').format('YYYY-MM-DD HH:mm:ss')
+        }
 
         $.getJSON('/api/logs?created_at__gte=' + param)
             .done(function (source) {
                 let data = new Array(2);
                 data[0] = _.pluck(source, 'created_at');
                 data[1] = _.pluck(source, 'temperature');
-                // data[2] = _.pluck(source, 'humidity');
                 chart.data.datasets[0].data=data[1];
                 chart.data.labels=data[0];
                 chart.update({
@@ -201,7 +216,7 @@
     $(document).ready(function () {
         // ラジオボタンのイベントリスナー
         $('input[name="days"]:radio').on('change', function () {
-            reload();
+            initial_load();
         });
         // 初期化
         initial_load();
