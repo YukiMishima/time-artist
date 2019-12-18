@@ -77,7 +77,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" charset="utf-8"></script>
 <script>
 
-    // setTimeout(()=>location.(), 5000)
+    setTimeout(()=>reload(), 5000)
 
     var chart;
 
@@ -189,8 +189,11 @@
                 data[0] = _.pluck(source, 'created_at');
                 data[1] = _.pluck(source, 'temperature');
                 // data[2] = _.pluck(source, 'humidity');
-                chart.data.datasets[0].data=data;
-                chart.update();
+                chart.data.datasets[0].data=data[1];
+                chart.data.labels=data[0];
+                chart.update({
+                    duration: 0,
+                });
             })
     };
 
