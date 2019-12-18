@@ -192,7 +192,7 @@
         // 指定時間を取得
         var days = $('input[name=days]:checked').val();
 
-        if (days=5) {
+        if (days==5) {
             var param = moment().subtract(days, 'minutes').format('YYYY-MM-DD HH:mm:ss')
         } else {
             // 1日、３日、７日前の時間を設定
