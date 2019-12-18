@@ -216,7 +216,7 @@
     $(document).ready(function () {
         // ラジオボタンのイベントリスナー
         $('input[name="days"]:radio').on('change', function () {
-            reload();
+            initial_reload();
         });
         // 初期化
         initial_load();
