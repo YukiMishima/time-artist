@@ -1,10 +1,12 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Log(models.Model):
     created_at = models.DateTimeField(
         verbose_name='登録時間',
-        auto_now_add=True,
+        # auto_now_add=True,
+        default=timezone.now
     )
     temperature = models.FloatField(
         verbose_name='混雑度',
