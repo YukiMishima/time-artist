@@ -1,8 +1,8 @@
-Django==2.0.5
+Django>=2.0.11
 django-filter==1.1.0
 django-heroku==0.3.1
 django-rest-framework==0.1.0
-djangorestframework==3.8.2
+djangorestframework>=3.9.1
 gunicorn==20.0.4
 matplotlib==3.0.2
 mpmath==1.1.0
