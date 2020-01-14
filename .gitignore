@@ -1,5 +1,5 @@
 .vscode
-__pycache__
+__pycache__/
 env
 staticfiles
 db.sqlite3
@@ -7,3 +7,6 @@ db.sqlite3
 local_settings.py
 data_post.py
 settings.py
+*.log
+*.pot
+access_token

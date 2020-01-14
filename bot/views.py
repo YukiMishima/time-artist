@@ -13,7 +13,7 @@ def index(request):
     return HttpResponse("This is bot api.")
 
 REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
-ACCESS_TOKEN = 'sUNmF6Y6hPssxRd1kjU+SEA+9yfaDfpAfbPvYhGZyvbI4nM37NgzMti/tchb1vinqH8oybkxzEaEJ9oQ+Fg0euIX/RJ3Gu1S2nvzdesqm3F3ml0NRy3/0S2gZnumweMsCFOsFDEcYZwTuZD8Xy4wMgdB04t89/1O/w1cDnyilFU='
+ACCESS_TOKEN = '******'
 
 HEADER = {
     "Content-Type": "application/json",
