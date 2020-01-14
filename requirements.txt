@@ -34,5 +34,5 @@ sympy==1.4
 tweepy==3.7.0
 urllib3==1.24.1
 virtualenv==16.3.0
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 whitenoise==5.0
